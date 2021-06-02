@@ -8,14 +8,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageHolders;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class ActivityMainMessage extends AppCompatActivity implements MessagesListAdapter.OnLoadMoreListener, MessageInput.AttachmentsListener,MessageInput.InputListener {
 
@@ -31,7 +34,10 @@ public class ActivityMainMessage extends AppCompatActivity implements MessagesLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_message_gg);
+
         messagesList =findViewById(R.id.messageList);
+        imageLoader = (imageView,url,payload) -> Picasso.get().load(url).into(imageView);
+
         activateAdapter();
         MessageInput input  =findViewById(R.id.input);
         input.setInputListener(this);
@@ -92,4 +98,11 @@ public class ActivityMainMessage extends AppCompatActivity implements MessagesLi
         messagesAdapter.addToStart(FixtureofMessages.getTextMessage(input.toString()),true);
         return true;
     }
+    @Override
+    public void onStart(){
+        super.onStart();
+        messagesAdapter.addToStart(FixtureofMessages.getTextMessage(),true);
+    }
+
+
 }

@@ -13,6 +13,6 @@ public class TextOutViewHolder extends MessageHolders.OutcomingTextMessageViewHo
     public void onBind(ModelOFMessage message) {
         super.onBind(message);
 
-        time.setText(message.getStatus()+""+time.getText());
+        time.setText(message.getStatus()+"  "+time.getText());
     }
 }

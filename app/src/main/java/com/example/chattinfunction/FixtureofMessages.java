@@ -10,7 +10,7 @@ public class FixtureofMessages extends FixtureDatas {
     }
     public static ModelOFMessage getImageMessage() {
         ModelOFMessage message = new ModelOFMessage(getRandomId(), getUser(), null);
-        message.setImage(new ModelOFMessage.Image ( getRandomImage()));
+        message.setImage(new ModelOFMessage.Image(getRandomImage()));
         return message;
     }
 

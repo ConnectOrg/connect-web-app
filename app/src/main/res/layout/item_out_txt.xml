@@ -29,8 +29,8 @@
         android:id="@+id/messageTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/bubble"
-        android:layout_alignStart="@id/bubble"
+        android:layout_alignEnd="@id/bubble"
+        android:layout_alignRight="@id/bubble"
         android:layout_below="@id/bubble"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp" />

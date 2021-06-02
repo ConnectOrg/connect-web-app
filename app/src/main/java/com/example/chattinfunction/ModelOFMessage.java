@@ -57,7 +57,7 @@ public class ModelOFMessage implements IMessage, MessageContentType.Image {
     }
 
     public static class Image{
-        private String url;
+        protected String url;
         public Image(String url){
             this.url =url;
         }
