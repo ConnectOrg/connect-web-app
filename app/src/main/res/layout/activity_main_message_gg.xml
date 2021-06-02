@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityMainMessage">
+    <com.stfalcon.chatkit.messages.MessagesList
+        android:id="@+id/listofmessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:incomingAvatarHeight="56dp"
+        app:incomingAvatarWidth="56dp"
+        android:layout_above="@id/messegeofinput"
+        app:outcomingTimeTextColor="@color/gray_dark_transparent"
+        app:incomingBubbleDrawable="@drawable/shapebubble_incoming"
+        app:outcomingBubbleDrawable="@drawable/shapebuuble_outcoming"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/vieweofinput"
+        android:layout_above="@id/messegeofinput"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"/>
+    <com.stfalcon.chatkit.messages.MessageInput
+        android:id="@+id/messegeofinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:attachmentButtonBackground="?attr/selectableItemBackground"
+        app:showAttachmentButton="true"
+        app:attachmentButtonHeight="27dp"
+        app:attachmentButtonWidth="27dp"
+        app:attachmentButtonDefaultIconColor="@color/purple_500"
+        app:inputButtonDefaultIconColor="@color/white"
+        app:inputButtonDefaultIconDisabledColor="@color/purple_500"
+        app:inputHint="Idhar likho re..."
+        />
+</RelativeLayout>

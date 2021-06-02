@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/useravatarofmessage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp" />
+
+    <!--this view is needed for custom holder-->
+    <ImageView
+        android:id="@+id/indicatorToonline"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignEnd="@id/useravatarofmessage"
+        android:layout_alignRight="@id/useravatarofmessage"
+        android:layout_alignTop="@id/useravatarofmessage"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp" />
+
+    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+        android:id="@+id/imageofmessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/message_incoming_bubble_margin_right"
+        android:layout_marginRight="@dimen/message_incoming_bubble_margin_right"
+        android:layout_toEndOf="@id/useravatarofmessage"
+        android:layout_toRightOf="@id/useravatarofmessage"
+        android:adjustViewBounds="true"
+        android:background="@drawable/shapebubble_incoming" />
+
+    <TextView
+        android:id="@+id/Timeofmessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/imageofmessage"
+        android:layout_alignRight="@id/imageofmessage"
+        android:layout_below="@id/imageofmessage"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp" />
+
+</RelativeLayout>

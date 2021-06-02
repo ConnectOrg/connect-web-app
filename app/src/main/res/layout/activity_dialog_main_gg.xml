@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityMainDialog">
+
+    <com.stfalcon.chatkit.dialogs.DialogsList
+        android:id="@+id/my_dialog_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:dialogMessageTextSize="17dp"
+        app:dialogMessageTextStyle="bold"
+        app:dialogUnreadBubbleBackgroundColor="@color/purple_700"
+        app:dialogUnreadItemBackground="@color/gray_dark_transparent"
+        app:dialogUnreadBubbleTextStyle="bold"/>
+
+</RelativeLayout>
