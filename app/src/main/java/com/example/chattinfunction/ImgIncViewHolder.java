@@ -8,7 +8,7 @@ public class ImgIncViewHolder  extends MessageHolders.IncomingImageMessageViewHo
     public View indicator;
     public ImgIncViewHolder(View itemView, Object payload) {
         super(itemView, payload);
-        indicator = itemView.findViewById(R.id.indicatorToonline);
+        indicator = itemView.findViewById(R.id.onlineIndicator);
     }
 
     @Override

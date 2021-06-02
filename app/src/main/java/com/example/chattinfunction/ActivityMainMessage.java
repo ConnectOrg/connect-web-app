@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.Menu;
 
 import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageHolders;
@@ -32,9 +31,9 @@ public class ActivityMainMessage extends AppCompatActivity implements MessagesLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_message_gg);
-        messagesList =findViewById(R.id.listofmessage);
+        messagesList =findViewById(R.id.messageList);
         activateAdapter();
-        MessageInput input  =findViewById(R.id.messegeofinput);
+        MessageInput input  =findViewById(R.id.input);
         input.setInputListener(this);
         input.setAttachmentsListener(this);
     }
