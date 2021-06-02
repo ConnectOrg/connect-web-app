@@ -9,7 +9,7 @@
     android:layout_marginTop="8dp">
 
     <LinearLayout
-        android:id="@+id/bubbleofmessg"
+        android:id="@+id/bubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -19,19 +19,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/messageoftext"
+            android:id="@+id/messageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/timeofmessage"
+        android:id="@+id/messageTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/bubbleofmessg"
-        android:layout_alignStart="@id/bubbleofmessg"
-        android:layout_below="@id/bubbleofmessg"
+        android:layout_alignLeft="@id/bubble"
+        android:layout_alignStart="@id/bubble"
+        android:layout_below="@id/bubble"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp" />
 

@@ -7,7 +7,7 @@
     android:layout_marginTop="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/useravatarofmessage"
+        android:id="@+id/messageUserAvatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
@@ -15,27 +15,27 @@
 
     <!--this view is needed for custom holder-->
     <ImageView
-        android:id="@+id/indicatorToonline"
+        android:id="@+id/onlineIndicator"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        android:layout_alignEnd="@id/useravatarofmessage"
-        android:layout_alignRight="@id/useravatarofmessage"
-        android:layout_alignTop="@id/useravatarofmessage"
+        android:layout_alignEnd="@id/messageUserAvatar"
+        android:layout_alignRight="@id/messageUserAvatar"
+        android:layout_alignTop="@id/messageUserAvatar"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp" />
 
     <LinearLayout
-        android:id="@+id/bubbleofmessg"
+        android:id="@+id/bubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
-        android:layout_toEndOf="@id/useravatarofmessage"
-        android:layout_toRightOf="@id/useravatarofmessage"
+        android:layout_toEndOf="@id/messageUserAvatar"
+        android:layout_toRightOf="@id/messageUserAvatar"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textofmessage"
+            android:id="@+id/messageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -46,12 +46,12 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/Timeofmessage"
+        android:id="@+id/messageTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/bubbleofmessg"
-        android:layout_alignRight="@id/bubbleofmessg"
-        android:layout_below="@id/bubbleofmessg"
+        android:layout_alignEnd="@id/bubble"
+        android:layout_alignRight="@id/bubble"
+        android:layout_below="@id/bubble"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp" />
 

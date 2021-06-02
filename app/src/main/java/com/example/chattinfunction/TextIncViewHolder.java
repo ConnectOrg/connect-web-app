@@ -3,14 +3,14 @@ package com.example.chattinfunction;
 import android.view.View;
 
 import com.stfalcon.chatkit.messages.MessageHolders;
-import com.example.chattinfunction.ModelOFUser;
+
 public class TextIncViewHolder extends MessageHolders.IncomingTextMessageViewHolder<ModelOFMessage> {
 
     private View indicator;
 
     public TextIncViewHolder(View itemView, Object payload) {
         super(itemView, payload);
-        indicator = itemView.findViewById(R.id.indicatorToonline);
+        indicator = itemView.findViewById(R.id.onlineIndicator);
     }
 
     @Override

@@ -3,13 +3,12 @@ package com.example.chattinfunction;
 import android.view.View;
 
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
-import com.example.chattinfunction.ModelOFUser;
 
 public class ViewHolderDialogActivity extends DialogsListAdapter.DialogViewHolder <ModelOFDialog>{
     private View indicator;
     public ViewHolderDialogActivity(View itemView) {
         super(itemView);
-        indicator = itemView.findViewById(R.id.indicatorToonline);
+        indicator = itemView.findViewById(R.id.onlineIndicator);
     }
 
     @Override

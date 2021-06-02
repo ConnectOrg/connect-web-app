@@ -2,7 +2,6 @@ package com.example.chattinfunction;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.os.Bundle;
 
 import com.squareup.picasso.Picasso;
@@ -20,7 +19,7 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_main_gg);
-        dialogsList = findViewById(R.id.my_dialog_list);
+        dialogsList = findViewById(R.id.dialogList);
         imageLoadergg = ((imageView, url, payload) -> Picasso.get().load(url).into(imageView));
         adapterActivate();
     }

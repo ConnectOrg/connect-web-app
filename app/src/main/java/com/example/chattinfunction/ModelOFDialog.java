@@ -1,27 +1,25 @@
 package com.example.chattinfunction;
 
 import com.stfalcon.chatkit.commons.models.IDialog;
-import com.stfalcon.chatkit.commons.models.IUser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModelOFDialog implements IDialog<ModelOFMessage> {
     String id;
-    String DialogPhotu;
+    String DialogPhoto;
     String DialogName;
     ArrayList<ModelOFUser> users;
     ModelOFMessage lastMessage;
 
-    int unreadCOunt;
+    int unreadCount;
 
-    public ModelOFDialog(String id, String Name,String Photo,ArrayList<ModelOFUser> users,ModelOFMessage lastMessage,int unreadCOunt){
+    public ModelOFDialog(String id, String Name,String Photo,ArrayList<ModelOFUser> users,ModelOFMessage lastMessage,int unreadCount){
         this.id =id;
         DialogName = Name;
-        DialogPhotu = Photo;
+        DialogPhoto = Photo;
         this.users = users;
         this.lastMessage = lastMessage;
-        this.unreadCOunt = unreadCOunt;
+        this.unreadCount = unreadCount;
     }
 
     @Override
@@ -31,7 +29,7 @@ public class ModelOFDialog implements IDialog<ModelOFMessage> {
 
     @Override
     public String getDialogPhoto() {
-        return DialogPhotu;
+        return DialogPhoto;
     }
 
     @Override
@@ -56,6 +54,6 @@ public class ModelOFDialog implements IDialog<ModelOFMessage> {
 
     @Override
     public int getUnreadCount() {
-        return unreadCOunt;
+        return unreadCount;
     }
 }
