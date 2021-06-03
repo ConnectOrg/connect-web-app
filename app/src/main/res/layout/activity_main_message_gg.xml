@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ActivityMainMessage">
     <com.stfalcon.chatkit.messages.MessagesList
-        android:id="@+id/messageList"
+        android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:incomingAvatarHeight="56dp"

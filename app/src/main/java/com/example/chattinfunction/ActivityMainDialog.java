@@ -3,6 +3,7 @@ package com.example.chattinfunction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -14,12 +15,16 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
     DialogsList dialogsList;
     DialogsListAdapter<ModelOFDialog> dialogsListAdapter;
     ImageLoader imageLoadergg;
+    ImageView imageView;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_main_gg);
-        dialogsList = findViewById(R.id.dialogList);
+        dialogsList = findViewById(R.id.dialogsList);
+        imageView = findViewById(R.id.dialogAvatar);
+        url = "https://picsum.photos/200/300";
         imageLoadergg = ((imageView, url, payload) -> Picasso.get().load(url).into(imageView));
         adapterActivate();
     }

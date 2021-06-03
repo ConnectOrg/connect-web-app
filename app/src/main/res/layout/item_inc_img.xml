@@ -34,7 +34,7 @@
         android:layout_toEndOf="@id/messageUserAvatar"
         android:layout_toRightOf="@id/messageUserAvatar"
         android:adjustViewBounds="true"
-        android:background="@drawable/shapebubble_incoming" />
+        app:siShape="@drawable/ic_image_view_incoming"/>
 
     <TextView
         android:id="@+id/messageTime"

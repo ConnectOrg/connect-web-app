@@ -14,7 +14,8 @@
         android:layout_marginLeft="@dimen/message_outcoming_bubble_margin_left"
         android:layout_marginStart="@dimen/message_outcoming_bubble_margin_left"
         android:adjustViewBounds="true"
-        android:background="@drawable/shapebubble_outcoming" />
+        app:siShape="@drawable/ic_image_view"
+        app:siSquare="false"/>
 
     <TextView
         android:id="@+id/messageTime"

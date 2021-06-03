@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.chatkit.commons.ImageLoader;
@@ -15,10 +16,8 @@ import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 public class ActivityMainMessage extends AppCompatActivity implements MessagesListAdapter.OnLoadMoreListener, MessageInput.AttachmentsListener,MessageInput.InputListener {
 
@@ -28,14 +27,17 @@ public class ActivityMainMessage extends AppCompatActivity implements MessagesLi
     protected ImageLoader imageLoader;
     protected MessagesListAdapter<ModelOFMessage> messagesAdapter;
     protected MessagesList messagesList;
+    protected String url;
     protected Date lastLoadedDate;
+    ImageView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_message_gg);
-
-        messagesList =findViewById(R.id.messageList);
+        view = findViewById(R.id.image);
+        url = "https://cdn.pixabay.com/photo/2017/12/25/17/48/waters-3038803_1280.jpg";
+        messagesList =findViewById(R.id.messagesList);
         imageLoader = (imageView,url,payload) -> Picasso.get().load(url).into(imageView);
 
         activateAdapter();
