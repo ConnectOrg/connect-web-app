@@ -1,15 +1,12 @@
 package com.example.chattinfunction;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import android.app.Dialog;
-import android.app.SearchManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -18,24 +15,28 @@ import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 
-public class ActivityMainDialog extends AppCompatActivity implements DialogsListAdapter.OnDialogClickListener<ModelOFDialog> {
+import java.util.ArrayList;
 
-    DialogsList dialogsList;
+public class ActivityMainDialog extends AppCompatActivity implements DialogsListAdapter.OnDialogClickListener<ModelOFDialog>, SearchView.OnQueryTextListener {
+
+    ArrayList<ModelOFDialog> dialogsList = new ArrayList<>();
+    DialogsList dialogsListview;
     ActivityMainDialogAdapter dialogsListAdapter;
     ImageLoader imageLoadergg;
     ImageView imageView;
     String url;
-    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_main_gg);
-        dialogsList = findViewById(R.id.dialogsList);
+        dialogsListview = findViewById(R.id.dialogsList);
         imageView = findViewById(R.id.dialogAvatar);
         url = "https://picsum.photos/200/300";
         imageLoadergg = ((imageView, url, payload) -> Picasso.get().load(url).into(imageView));
         adapterActivate();
+        Log.d("adapter",dialogsListAdapter.toString());
+        Log.d("list", dialogsListview.toString());
     }
 
     private void adapterActivate() {
@@ -47,7 +48,7 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
 
         dialogsListAdapter.setOnDialogClickListener(this);
         dialogsListAdapter.setItems(FixtureOFDialogs.getDialogs());
-        dialogsList.setAdapter(dialogsListAdapter);
+        dialogsListview.setAdapter(dialogsListAdapter);
     }
 
 
@@ -56,51 +57,58 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
         ActivityMainMessage.start(this);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_menu, menu);
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search)
-                .getActionView();
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(this);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+        item.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                dialogsListAdapter.getFilter().filter(query);
-                return false;
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Do something when collapsed
+                dialogsListAdapter.setFilter(dialogsList);
+                return true; // Return true to collapse action view
             }
 
             @Override
-            public boolean onQueryTextChange(String query) {
-                dialogsListAdapter.getFilter().filter(query);
-                return false;
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                // Do something when expanded
+                return true; // Return true to expand action view
             }
         });
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_search) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public boolean onQueryTextChange(String newText) {
+        final ArrayList<ModelOFDialog> filteredModelList = filter(dialogsList, newText);
+        dialogsListAdapter.setFilter(filteredModelList);
+        return true;
     }
 
     @Override
-    public void onBackPressed() {
-        if (!searchView.isIconified()) {
-            searchView.setIconified(true);
-            return;
-        }
-        super.onBackPressed();
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
+
+    private ArrayList<ModelOFDialog> filter(ArrayList<ModelOFDialog> models, String query) {
+        query = query.toLowerCase();
+
+        final ArrayList<ModelOFDialog> filteredModelList = new ArrayList<>();
+        for (ModelOFDialog model : models) {
+            final String text = model.getDialogName().toLowerCase();
+            if (text.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
+    }
+
+
 }
 
