@@ -1,6 +1,6 @@
 package com.example.chattinfunction;
 
-import com.stfalcon.chatkit.commons.models.IUser;
+import com.example.chattinfunction.commons.models.IUser;
 
 public class ModelOFUser implements IUser {
 

@@ -2,10 +2,10 @@ package com.example.chattinfunction;
 
 import androidx.annotation.Nullable;
 
-import com.stfalcon.chatkit.commons.models.IMessage;
-import com.stfalcon.chatkit.commons.models.IUser;
-import com.stfalcon.chatkit.commons.models.MessageContentType;
-import com.stfalcon.chatkit.messages.MessageInput;
+import com.example.chattinfunction.commons.models.IMessage;
+import com.example.chattinfunction.commons.models.IUser;
+import com.example.chattinfunction.commons.models.MessageContentType;
+import com.example.chattinfunction.messages.MessageInput;
 
 import java.util.Date;
 

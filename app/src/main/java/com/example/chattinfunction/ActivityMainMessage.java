@@ -10,11 +10,11 @@ import android.os.Looper;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.stfalcon.chatkit.commons.ImageLoader;
-import com.stfalcon.chatkit.messages.MessageHolders;
-import com.stfalcon.chatkit.messages.MessageInput;
-import com.stfalcon.chatkit.messages.MessagesList;
-import com.stfalcon.chatkit.messages.MessagesListAdapter;
+import com.example.chattinfunction.commons.ImageLoader;
+import com.example.chattinfunction.messages.MessageHolders;
+import com.example.chattinfunction.messages.MessageInput;
+import com.example.chattinfunction.messages.MessagesList;
+import com.example.chattinfunction.messages.MessagesListAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;

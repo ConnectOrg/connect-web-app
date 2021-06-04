@@ -2,7 +2,7 @@ package com.example.chattinfunction;
 
 import android.view.View;
 
-import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
+import com.example.chattinfunction.dialogs.DialogsListAdapter;
 
 public class ViewHolderDialogActivity extends DialogsListAdapter.DialogViewHolder <ModelOFDialog>{
     private View indicator;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivityMainMessage">
-    <com.stfalcon.chatkit.messages.MessagesList
+    <com.example.chattinfunction.messages.MessagesList
         android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +22,7 @@
         android:layout_above="@id/input"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"/>
-    <com.stfalcon.chatkit.messages.MessageInput
+    <com.example.chattinfunction.messages.MessageInput
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

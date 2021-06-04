@@ -2,7 +2,7 @@ package com.example.chattinfunction;
 
 import android.view.View;
 
-import com.stfalcon.chatkit.messages.MessageHolders;
+import com.example.chattinfunction.messages.MessageHolders;
 
 public class TextIncViewHolder extends MessageHolders.IncomingTextMessageViewHolder<ModelOFMessage> {
 
