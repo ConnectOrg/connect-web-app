@@ -36,8 +36,6 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
         url = "https://picsum.photos/200/300";
         imageLoadergg = ((imageView, url, payload) -> Picasso.get().load(url).into(imageView));
         adapterActivate();
-        Log.d("adapter",dialogsListAdapter.toString());
-        Log.d("list", dialogsListview.toString());
     }
 
     private void adapterActivate() {
