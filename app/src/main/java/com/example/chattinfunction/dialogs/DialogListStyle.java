@@ -14,7 +14,7 @@
  * limitations under the License.
  *******************************************************************************/
 
-package com.example.chattinfunction;
+package com.example.chattinfunction.dialogs;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -28,7 +28,7 @@ import com.example.chattinfunction.commons.Style;
  * Style for DialogList customization by xml attributes
  */
 @SuppressWarnings("WeakerAccess")
-class DialogsListStyle extends Style {
+class DialogListStyle extends Style {
 
     private int dialogTitleTextColor;
     private int dialogTitleTextSize;
@@ -69,8 +69,8 @@ class DialogsListStyle extends Style {
     private int dialogItemBackground;
     private int dialogUnreadItemBackground;
 
-    static DialogsListStyle parse(Context context, AttributeSet attrs) {
-        DialogsListStyle style = new DialogsListStyle(context, attrs);
+    static DialogListStyle parse(Context context, AttributeSet attrs) {
+        DialogListStyle style = new DialogListStyle(context, attrs);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.DialogsList);
 
@@ -154,7 +154,7 @@ class DialogsListStyle extends Style {
         return style;
     }
 
-    private DialogsListStyle(Context context, AttributeSet attrs) {
+    private DialogListStyle(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

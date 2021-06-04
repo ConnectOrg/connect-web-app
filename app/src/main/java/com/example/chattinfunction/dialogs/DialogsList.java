@@ -1,5 +1,3 @@
-package com.example.chattinfunction;
-
 /*******************************************************************************
  * Copyright 2016 stfalcon.com
  * <p>
@@ -16,6 +14,7 @@ package com.example.chattinfunction;
  * limitations under the License.
  *******************************************************************************/
 
+package com.example.chattinfunction.dialogs;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -27,26 +26,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.example.chattinfunction.commons.models.IDialog;
-//import com.example.chattinfunction.dialogs.DialogsListStyle;
-//import com.example.chattinfunction.dialogs.DialogListAdapter;
 
 /**
  * Component for displaying list of dialogs
  */
-public class DialogList extends RecyclerView {
+public class DialogsList extends RecyclerView {
 
-    private DialogsListStyle dialogStyle;
+    private DialogListStyle dialogStyle;
 
-    public DialogList(Context context) {
+    public DialogsList(Context context) {
         super(context);
     }
 
-    public DialogList(Context context, @Nullable AttributeSet attrs) {
+    public DialogsList(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         parseStyle(context, attrs);
     }
 
-    public DialogList(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public DialogsList(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         parseStyle(context, attrs);
     }
@@ -64,33 +61,33 @@ public class DialogList extends RecyclerView {
 
     /**
      * Don't use this method for setting your adapter, otherwise exception will by thrown.
-     * Call {@link #setAdapter(DialogListAdapter)} instead.
+     * Call {@link #setAdapter(DialogsListAdapter)} instead.
      */
     @Override
     public void setAdapter(Adapter adapter) {
-        throw new IllegalArgumentException("You can't set adapter to DialogList. Use #setAdapter(DialogListAdapter) instead.");
+        throw new IllegalArgumentException("You can't set adapter to DialogsList. Use #setAdapter(DialogsListAdapter) instead.");
     }
 
     /**
-     * Sets adapter for DialogList
+     * Sets adapter for DialogsList
      *
-     * @param adapter  Adapter. Must extend DialogListAdapter
+     * @param adapter  Adapter. Must extend DialogsListAdapter
      * @param <DIALOG> Dialog model class
      */
     public <DIALOG extends IDialog<?>>
-    void setAdapter(DialogListAdapter<DIALOG> adapter) {
+    void setAdapter(DialogsListAdapter<DIALOG> adapter) {
         setAdapter(adapter, false);
     }
 
     /**
-     * Sets adapter for DialogList
+     * Sets adapter for DialogsList
      *
-     * @param adapter       Adapter. Must extend DialogListAdapter
+     * @param adapter       Adapter. Must extend DialogsListAdapter
      * @param reverseLayout weather to use reverse layout for layout manager.
      * @param <DIALOG>      Dialog model class
      */
     public <DIALOG extends IDialog<?>>
-    void setAdapter(DialogListAdapter<DIALOG> adapter, boolean reverseLayout) {
+    void setAdapter(DialogsListAdapter<DIALOG> adapter, boolean reverseLayout) {
         SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setSupportsChangeAnimations(false);
 
@@ -107,6 +104,6 @@ public class DialogList extends RecyclerView {
 
     @SuppressWarnings("ResourceType")
     private void parseStyle(Context context, AttributeSet attrs) {
-        dialogStyle = DialogsListStyle.parse(context, attrs);
+        dialogStyle = DialogListStyle.parse(context, attrs);
     }
 }

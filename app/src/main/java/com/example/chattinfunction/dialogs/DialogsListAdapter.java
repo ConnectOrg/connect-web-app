@@ -1,48 +1,68 @@
-package com.example.chattinfunction;
-        import android.graphics.Typeface;
-        import android.graphics.drawable.GradientDrawable;
-        import android.util.TypedValue;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ImageView;
-        import android.widget.TextView;
+/******************************************************************************
+ * Copyright 2016 stfalcon.com
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 
-        import androidx.annotation.LayoutRes;
-        import androidx.annotation.Nullable;
-        import androidx.recyclerview.widget.RecyclerView;
+package com.example.chattinfunction.dialogs;
 
-        import com.example.chattinfunction.R;
-        import com.example.chattinfunction.commons.ImageLoader;
-        import com.example.chattinfunction.commons.ViewHolder;
-        import com.example.chattinfunction.commons.models.IDialog;
-        import com.example.chattinfunction.commons.models.IMessage;
-        import com.example.chattinfunction.utils.DateFormatter;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-        import java.lang.reflect.Constructor;
-        import java.util.ArrayList;
-        import java.util.Collections;
-        import java.util.Comparator;
-        import java.util.Date;
-        import java.util.List;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
-        import static android.view.View.GONE;
-        import static android.view.View.VISIBLE;
+import com.example.chattinfunction.ModelOFDialog;
+import com.example.chattinfunction.R;
+import com.example.chattinfunction.commons.ImageLoader;
+import com.example.chattinfunction.commons.ViewHolder;
+import com.example.chattinfunction.commons.models.IDialog;
+import com.example.chattinfunction.commons.models.IMessage;
+import com.example.chattinfunction.utils.DateFormatter;
 
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
-//@SuppressWarnings("WeakerAccess")
-public class DialogListAdapter<DIALOG extends IDialog>
-        extends RecyclerView.Adapter<DialogListAdapter.BaseDialogsViewHolder> {
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
+/**
+ * Adapter for {@link DialogsList}
+ */
+@SuppressWarnings("WeakerAccess")
+public class DialogsListAdapter<DIALOG extends IDialog>
+        extends RecyclerView.Adapter<DialogsListAdapter.BaseDialogViewHolder> {
 
     protected List<DIALOG> items = new ArrayList<>();
     private int itemLayoutId;
-    private Class<? extends BaseDialogsViewHolder> holderClass;
+    private Class<? extends BaseDialogViewHolder> holderClass;
     private ImageLoader imageLoader;
-    private com.example.chattinfunction.DialogListAdapter.OnDialogClickListener<DIALOG> onDialogClickListener;
-    private com.example.chattinfunction.DialogListAdapter.OnDialogViewClickListener<DIALOG> onDialogViewClickListener;
-    private com.example.chattinfunction.DialogListAdapter.OnDialogLongClickListener<DIALOG> onLongItemClickListener;
-    private com.example.chattinfunction.DialogListAdapter.OnDialogViewLongClickListener<DIALOG> onDialogViewLongClickListener;
-    private DialogsListStyle dialogStyle;
+    private OnDialogClickListener<DIALOG> onDialogClickListener;
+    private OnDialogViewClickListener<DIALOG> onDialogViewClickListener;
+    private OnDialogLongClickListener<DIALOG> onLongItemClickListener;
+    private OnDialogViewLongClickListener<DIALOG> onDialogViewLongClickListener;
+    private DialogListStyle dialogStyle;
     private DateFormatter.Formatter datesFormatter;
 
     /**
@@ -50,8 +70,8 @@ public class DialogListAdapter<DIALOG extends IDialog>
      *
      * @param imageLoader image loading method
      */
-    public DialogListAdapter(ImageLoader imageLoader) {
-        this(R.layout.item_dialog, DialogsViewHolder.class, imageLoader);
+    public DialogsListAdapter(ImageLoader imageLoader) {
+        this(R.layout.item_dialog, DialogViewHolder.class, imageLoader);
     }
 
     /**
@@ -60,8 +80,8 @@ public class DialogListAdapter<DIALOG extends IDialog>
      * @param itemLayoutId custom list item resource id
      * @param imageLoader  image loading method
      */
-    public DialogListAdapter(@LayoutRes int itemLayoutId, ImageLoader imageLoader) {
-        this(itemLayoutId, DialogsViewHolder.class, imageLoader);
+    public DialogsListAdapter(@LayoutRes int itemLayoutId, ImageLoader imageLoader) {
+        this(itemLayoutId, DialogViewHolder.class, imageLoader);
     }
 
     /**
@@ -71,8 +91,8 @@ public class DialogListAdapter<DIALOG extends IDialog>
      * @param holderClass  custom view holder class
      * @param imageLoader  image loading method
      */
-    public DialogListAdapter(@LayoutRes int itemLayoutId, Class<? extends BaseDialogsViewHolder> holderClass,
-                             ImageLoader imageLoader) {
+    public DialogsListAdapter(@LayoutRes int itemLayoutId, Class<? extends BaseDialogViewHolder> holderClass,
+                              ImageLoader imageLoader) {
         this.itemLayoutId = itemLayoutId;
         this.holderClass = holderClass;
         this.imageLoader = imageLoader;
@@ -80,7 +100,7 @@ public class DialogListAdapter<DIALOG extends IDialog>
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onBindViewHolder(BaseDialogsViewHolder holder, int position) {
+    public void onBindViewHolder(BaseDialogViewHolder holder, int position) {
         holder.setImageLoader(imageLoader);
         holder.setOnDialogClickListener(onDialogClickListener);
         holder.setOnDialogViewClickListener(onDialogViewClickListener);
@@ -91,17 +111,17 @@ public class DialogListAdapter<DIALOG extends IDialog>
     }
 
     @Override
-    public BaseDialogsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseDialogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(itemLayoutId, parent, false);
         //create view holder by reflation
         try {
-            Constructor<? extends BaseDialogsViewHolder> constructor = holderClass.getDeclaredConstructor(View.class);
+            Constructor<? extends BaseDialogViewHolder> constructor = holderClass.getDeclaredConstructor(View.class);
             constructor.setAccessible(true);
-            BaseDialogsViewHolder baseDialogsViewHolder = constructor.newInstance(v);
-            if (baseDialogsViewHolder instanceof DialogListAdapter.DialogsViewHolder) {
-                ((DialogsViewHolder) baseDialogsViewHolder).setDialogStyle(dialogStyle);
+            BaseDialogViewHolder baseDialogViewHolder = constructor.newInstance(v);
+            if (baseDialogViewHolder instanceof DialogViewHolder) {
+                ((DialogViewHolder) baseDialogViewHolder).setDialogStyle(dialogStyle);
             }
-            return baseDialogsViewHolder;
+            return baseDialogViewHolder;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,6 +179,12 @@ public class DialogListAdapter<DIALOG extends IDialog>
         notifyDataSetChanged();
     }
 
+    public void setFilter(List<DIALOG> Models){
+        items = new ArrayList<>();
+        items.addAll(Models);
+        notifyDataSetChanged();
+    }
+
     /**
      * Add dialogs items
      *
@@ -173,12 +199,6 @@ public class DialogListAdapter<DIALOG extends IDialog>
             items.addAll(newItems);
             notifyItemRangeInserted(curSize, items.size());
         }
-    }
-
-    public void setFilter(List<DIALOG> Models){
-        items = new ArrayList<>();
-        items.addAll(Models);
-        notifyDataSetChanged();
     }
 
     /**
@@ -355,7 +375,7 @@ public class DialogListAdapter<DIALOG extends IDialog>
     /**
      * @return the item click callback.
      */
-    public com.example.chattinfunction.DialogListAdapter.OnDialogClickListener getOnDialogClickListener() {
+    public OnDialogClickListener getOnDialogClickListener() {
         return onDialogClickListener;
     }
 
@@ -364,14 +384,14 @@ public class DialogListAdapter<DIALOG extends IDialog>
      *
      * @param onDialogClickListener on click item callback
      */
-    public void setOnDialogClickListener(com.example.chattinfunction.DialogListAdapter.OnDialogClickListener<DIALOG> onDialogClickListener) {
+    public void setOnDialogClickListener(OnDialogClickListener<DIALOG> onDialogClickListener) {
         this.onDialogClickListener = onDialogClickListener;
     }
 
     /**
      * @return the view click callback.
      */
-    public com.example.chattinfunction.DialogListAdapter.OnDialogViewClickListener getOnDialogViewClickListener() {
+    public OnDialogViewClickListener getOnDialogViewClickListener() {
         return onDialogViewClickListener;
     }
 
@@ -380,14 +400,14 @@ public class DialogListAdapter<DIALOG extends IDialog>
      *
      * @param clickListener on click item callback
      */
-    public void setOnDialogViewClickListener(com.example.chattinfunction.DialogListAdapter.OnDialogViewClickListener<DIALOG> clickListener) {
+    public void setOnDialogViewClickListener(OnDialogViewClickListener<DIALOG> clickListener) {
         this.onDialogViewClickListener = clickListener;
     }
 
     /**
      * @return on long click item callback
      */
-    public com.example.chattinfunction.DialogListAdapter.OnDialogLongClickListener getOnLongItemClickListener() {
+    public OnDialogLongClickListener getOnLongItemClickListener() {
         return onLongItemClickListener;
     }
 
@@ -396,14 +416,14 @@ public class DialogListAdapter<DIALOG extends IDialog>
      *
      * @param onLongItemClickListener on long click item callback
      */
-    public void setOnDialogLongClickListener(com.example.chattinfunction.DialogListAdapter.OnDialogLongClickListener<DIALOG> onLongItemClickListener) {
+    public void setOnDialogLongClickListener(OnDialogLongClickListener<DIALOG> onLongItemClickListener) {
         this.onLongItemClickListener = onLongItemClickListener;
     }
 
     /**
      * @return on view long click callback
      */
-    public com.example.chattinfunction.DialogListAdapter.OnDialogViewLongClickListener<DIALOG> getOnDialogViewLongClickListener() {
+    public OnDialogViewLongClickListener<DIALOG> getOnDialogViewLongClickListener() {
         return onDialogViewLongClickListener;
     }
 
@@ -412,7 +432,7 @@ public class DialogListAdapter<DIALOG extends IDialog>
      *
      * @param clickListener on long click item callback
      */
-    public void setOnDialogViewLongClickListener(com.example.chattinfunction.DialogListAdapter.OnDialogViewLongClickListener<DIALOG> clickListener) {
+    public void setOnDialogViewLongClickListener(OnDialogViewLongClickListener<DIALOG> clickListener) {
         this.onDialogViewLongClickListener = clickListener;
     }
 
@@ -424,7 +444,7 @@ public class DialogListAdapter<DIALOG extends IDialog>
     }
 
     //TODO ability to set style programmatically
-    void setStyle(DialogsListStyle dialogStyle) {
+    void setStyle(DialogListStyle dialogStyle) {
         this.dialogStyle = dialogStyle;
     }
 
@@ -457,17 +477,17 @@ public class DialogListAdapter<DIALOG extends IDialog>
     /*
      * HOLDERS
      * */
-    public abstract static class BaseDialogsViewHolder<DIALOG extends IDialog>
+    public abstract static class BaseDialogViewHolder<DIALOG extends IDialog>
             extends ViewHolder<DIALOG> {
 
         protected ImageLoader imageLoader;
-        protected com.example.chattinfunction.DialogListAdapter.OnDialogClickListener<DIALOG> onDialogClickListener;
-        protected com.example.chattinfunction.DialogListAdapter.OnDialogLongClickListener<DIALOG> onLongItemClickListener;
-        protected com.example.chattinfunction.DialogListAdapter.OnDialogViewClickListener<DIALOG> onDialogViewClickListener;
-        protected com.example.chattinfunction.DialogListAdapter.OnDialogViewLongClickListener<DIALOG> onDialogViewLongClickListener;
+        protected OnDialogClickListener<DIALOG> onDialogClickListener;
+        protected OnDialogLongClickListener<DIALOG> onLongItemClickListener;
+        protected OnDialogViewClickListener<DIALOG> onDialogViewClickListener;
+        protected OnDialogViewLongClickListener<DIALOG> onDialogViewLongClickListener;
         protected DateFormatter.Formatter datesFormatter;
 
-        public BaseDialogsViewHolder(View itemView) {
+        public BaseDialogViewHolder(View itemView) {
             super(itemView);
         }
 
@@ -475,19 +495,19 @@ public class DialogListAdapter<DIALOG extends IDialog>
             this.imageLoader = imageLoader;
         }
 
-        protected void setOnDialogClickListener(com.example.chattinfunction.DialogListAdapter.OnDialogClickListener<DIALOG> onDialogClickListener) {
+        protected void setOnDialogClickListener(OnDialogClickListener<DIALOG> onDialogClickListener) {
             this.onDialogClickListener = onDialogClickListener;
         }
 
-        protected void setOnDialogViewClickListener(com.example.chattinfunction.DialogListAdapter.OnDialogViewClickListener<DIALOG> onDialogViewClickListener) {
+        protected void setOnDialogViewClickListener(OnDialogViewClickListener<DIALOG> onDialogViewClickListener) {
             this.onDialogViewClickListener = onDialogViewClickListener;
         }
 
-        protected void setOnLongItemClickListener(com.example.chattinfunction.DialogListAdapter.OnDialogLongClickListener<DIALOG> onLongItemClickListener) {
+        protected void setOnLongItemClickListener(OnDialogLongClickListener<DIALOG> onLongItemClickListener) {
             this.onLongItemClickListener = onLongItemClickListener;
         }
 
-        protected void setOnDialogViewLongClickListener(com.example.chattinfunction.DialogListAdapter.OnDialogViewLongClickListener<DIALOG> onDialogViewLongClickListener) {
+        protected void setOnDialogViewLongClickListener(OnDialogViewLongClickListener<DIALOG> onDialogViewLongClickListener) {
             this.onDialogViewLongClickListener = onDialogViewLongClickListener;
         }
 
@@ -496,8 +516,8 @@ public class DialogListAdapter<DIALOG extends IDialog>
         }
     }
 
-    public static class DialogsViewHolder<DIALOG extends IDialog> extends BaseDialogsViewHolder<DIALOG> {
-        protected DialogsListStyle dialogStyle;
+    public static class DialogViewHolder<DIALOG extends IDialog> extends BaseDialogViewHolder<DIALOG> {
+        protected DialogListStyle dialogStyle;
         protected ViewGroup container;
         protected ViewGroup root;
         protected TextView tvName;
@@ -509,7 +529,7 @@ public class DialogListAdapter<DIALOG extends IDialog>
         protected ViewGroup dividerContainer;
         protected View divider;
 
-        public DialogsViewHolder(View itemView) {
+        public DialogViewHolder(View itemView) {
             super(itemView);
             root = itemView.findViewById(R.id.dialogRootLayout);
             container = itemView.findViewById(R.id.dialogContainer);
@@ -691,11 +711,11 @@ public class DialogListAdapter<DIALOG extends IDialog>
             return DateFormatter.format(date, DateFormatter.Template.TIME);
         }
 
-        protected DialogsListStyle getDialogStyle() {
+        protected DialogListStyle getDialogStyle() {
             return dialogStyle;
         }
 
-        protected void setDialogStyle(DialogsListStyle dialogStyle) {
+        protected void setDialogStyle(DialogListStyle dialogStyle) {
             this.dialogStyle = dialogStyle;
             applyStyle();
         }

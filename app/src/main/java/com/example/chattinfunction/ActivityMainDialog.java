@@ -11,9 +11,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.stfalcon.chatkit.commons.ImageLoader;
-import com.stfalcon.chatkit.dialogs.DialogsList;
-import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
+import com.example.chattinfunction.commons.ImageLoader;
+import com.example.chattinfunction.dialogs.DialogsList;
+import com.example.chattinfunction.dialogs.DialogsListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +72,7 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 // Do something when collapsed
-                setFilter(dialogsList);
+                dialogsListAdapter.setFilter(dialogsList);
                 return true; // Return true to collapse action view
             }
 
@@ -88,7 +88,7 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
     @Override
     public boolean onQueryTextChange(String newText) {
         final ArrayList<ModelOFDialog> filteredModelList = filter(dialogsList, newText);
-        setFilter(filteredModelList);
+        dialogsListAdapter.setFilter(filteredModelList);
         return true;
     }
 
@@ -109,13 +109,5 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
         }
         return filteredModelList;
     }
-
-    public void setFilter(List<ModelOFDialog> Models){
-        dialogsList = new ArrayList<>();
-        dialogsList.addAll(Models);
-        dialogsListAdapter.notifyDataSetChanged();
-    }
-
-
 }
 

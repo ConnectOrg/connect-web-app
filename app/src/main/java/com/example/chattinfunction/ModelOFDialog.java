@@ -1,6 +1,6 @@
 package com.example.chattinfunction;
 
-import com.stfalcon.chatkit.commons.models.IDialog;
+import com.example.chattinfunction.commons.models.IDialog;
 
 import java.util.ArrayList;
 

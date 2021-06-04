@@ -1,5 +1,3 @@
-package com.example.chattinfunction;
-
 /*******************************************************************************
  * Copyright 2016 stfalcon.com
  * <p>
@@ -16,6 +14,7 @@ package com.example.chattinfunction;
  * limitations under the License.
  *******************************************************************************/
 
+package com.example.chattinfunction.messages;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -26,71 +25,57 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
-import com.example.chattinfunction.commons.models.IDialog;
-//import com.example.chattinfunction.dialogs.DialogsListStyle;
-//import com.example.chattinfunction.dialogs.DialogListAdapter;
+import com.example.chattinfunction.commons.models.IMessage;
 
 /**
- * Component for displaying list of dialogs
+ * Component for displaying list of messages
  */
-public class DialogList extends RecyclerView {
+public class MessagesList extends RecyclerView {
+    private MessagesListStyle messagesListStyle;
 
-    private DialogsListStyle dialogStyle;
-
-    public DialogList(Context context) {
+    public MessagesList(Context context) {
         super(context);
     }
 
-    public DialogList(Context context, @Nullable AttributeSet attrs) {
+    public MessagesList(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         parseStyle(context, attrs);
     }
 
-    public DialogList(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public MessagesList(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         parseStyle(context, attrs);
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-
-        LinearLayoutManager layout = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        SimpleItemAnimator animator = new DefaultItemAnimator();
-
-        setLayoutManager(layout);
-        setItemAnimator(animator);
-    }
-
     /**
      * Don't use this method for setting your adapter, otherwise exception will by thrown.
-     * Call {@link #setAdapter(DialogListAdapter)} instead.
+     * Call {@link #setAdapter(MessagesListAdapter)} instead.
      */
     @Override
     public void setAdapter(Adapter adapter) {
-        throw new IllegalArgumentException("You can't set adapter to DialogList. Use #setAdapter(DialogListAdapter) instead.");
+        throw new IllegalArgumentException("You can't set adapter to MessagesList. Use #setAdapter(MessagesListAdapter) instead.");
     }
 
     /**
-     * Sets adapter for DialogList
+     * Sets adapter for MessagesList
      *
-     * @param adapter  Adapter. Must extend DialogListAdapter
-     * @param <DIALOG> Dialog model class
+     * @param adapter   Adapter. Must extend MessagesListAdapter
+     * @param <MESSAGE> Message model class
      */
-    public <DIALOG extends IDialog<?>>
-    void setAdapter(DialogListAdapter<DIALOG> adapter) {
-        setAdapter(adapter, false);
+    public <MESSAGE extends IMessage>
+    void setAdapter(MessagesListAdapter<MESSAGE> adapter) {
+        setAdapter(adapter, true);
     }
 
     /**
-     * Sets adapter for DialogList
+     * Sets adapter for MessagesList
      *
-     * @param adapter       Adapter. Must extend DialogListAdapter
+     * @param adapter       Adapter. Must extend MessagesListAdapter
      * @param reverseLayout weather to use reverse layout for layout manager.
-     * @param <DIALOG>      Dialog model class
+     * @param <MESSAGE>     Message model class
      */
-    public <DIALOG extends IDialog<?>>
-    void setAdapter(DialogListAdapter<DIALOG> adapter, boolean reverseLayout) {
+    public <MESSAGE extends IMessage>
+    void setAdapter(MessagesListAdapter<MESSAGE> adapter, boolean reverseLayout) {
         SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
         itemAnimator.setSupportsChangeAnimations(false);
 
@@ -99,14 +84,15 @@ public class DialogList extends RecyclerView {
 
         setItemAnimator(itemAnimator);
         setLayoutManager(layoutManager);
+        adapter.setLayoutManager(layoutManager);
+        adapter.setStyle(messagesListStyle);
 
-        adapter.setStyle(dialogStyle);
-
+        addOnScrollListener(new RecyclerScrollMoreListener(layoutManager, adapter));
         super.setAdapter(adapter);
     }
 
     @SuppressWarnings("ResourceType")
     private void parseStyle(Context context, AttributeSet attrs) {
-        dialogStyle = DialogsListStyle.parse(context, attrs);
+        messagesListStyle = MessagesListStyle.parse(context, attrs);
     }
 }
