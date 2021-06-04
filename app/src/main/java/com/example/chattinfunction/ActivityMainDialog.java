@@ -16,12 +16,13 @@ import com.stfalcon.chatkit.dialogs.DialogsList;
 import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityMainDialog extends AppCompatActivity implements DialogsListAdapter.OnDialogClickListener<ModelOFDialog>, SearchView.OnQueryTextListener {
 
-    ArrayList<ModelOFDialog> dialogsList = new ArrayList<>();
+    ArrayList<ModelOFDialog> dialogsList = FixtureOFDialogs.getDialogs();
     DialogsList dialogsListview;
-    ActivityMainDialogAdapter dialogsListAdapter;
+    DialogsListAdapter dialogsListAdapter;
     ImageLoader imageLoadergg;
     ImageView imageView;
     String url;
@@ -40,14 +41,14 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
     }
 
     private void adapterActivate() {
-        dialogsListAdapter = new ActivityMainDialogAdapter(
+        dialogsListAdapter = new DialogsListAdapter<>(
                 R.layout.item_view_dialog_gg,
                 ViewHolderDialogActivity.class,
                 imageLoadergg
         );
 
         dialogsListAdapter.setOnDialogClickListener(this);
-        dialogsListAdapter.setItems(FixtureOFDialogs.getDialogs());
+        dialogsListAdapter.setItems(dialogsList);
         dialogsListview.setAdapter(dialogsListAdapter);
     }
 
@@ -71,7 +72,7 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 // Do something when collapsed
-                dialogsListAdapter.setFilter(dialogsList);
+                setFilter(dialogsList);
                 return true; // Return true to collapse action view
             }
 
@@ -87,7 +88,7 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
     @Override
     public boolean onQueryTextChange(String newText) {
         final ArrayList<ModelOFDialog> filteredModelList = filter(dialogsList, newText);
-        dialogsListAdapter.setFilter(filteredModelList);
+        setFilter(filteredModelList);
         return true;
     }
 
@@ -107,6 +108,12 @@ public class ActivityMainDialog extends AppCompatActivity implements DialogsList
             }
         }
         return filteredModelList;
+    }
+
+    public void setFilter(List<ModelOFDialog> Models){
+        dialogsList = new ArrayList<>();
+        dialogsList.addAll(Models);
+        dialogsListAdapter.notifyDataSetChanged();
     }
 
 
